@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  AlbumViewController.swift
 //  TestTaskFS
 //
 //  Created by Nikita Sukachev on 10.12.2020.
@@ -7,13 +7,11 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+final class AlbumViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        view.backgroundColor = .red
     }
-
-
 }
-
