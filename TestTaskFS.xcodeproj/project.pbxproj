@@ -13,6 +13,7 @@
 		5E4853682582908E00E1B1BF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E4853662582908E00E1B1BF /* LaunchScreen.storyboard */; };
 		5E4853A625829A0200E1B1BF /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 5E4853A525829A0200E1B1BF /* SDWebImage */; };
 		5E4853AA25829A5600E1B1BF /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4853A925829A5600E1B1BF /* AlbumViewController.swift */; };
+		5E4853AF25829C6B00E1B1BF /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4853AE25829C6B00E1B1BF /* Album.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		5E4853672582908E00E1B1BF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5E4853692582908E00E1B1BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5E4853A925829A5600E1B1BF /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
+		5E4853AE25829C6B00E1B1BF /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,14 +58,23 @@
 		5E48535A2582908C00E1B1BF /* TestTaskFS */ = {
 			isa = PBXGroup;
 			children = (
+				5E4853AC25829C5800E1B1BF /* Views */,
 				5E48535B2582908C00E1B1BF /* AppDelegate.swift */,
 				5E48535D2582908C00E1B1BF /* SceneDelegate.swift */,
-				5E4853A925829A5600E1B1BF /* AlbumViewController.swift */,
 				5E4853642582908E00E1B1BF /* Assets.xcassets */,
 				5E4853662582908E00E1B1BF /* LaunchScreen.storyboard */,
 				5E4853692582908E00E1B1BF /* Info.plist */,
+				5E4853AE25829C6B00E1B1BF /* Album.swift */,
 			);
 			path = TestTaskFS;
+			sourceTree = "<group>";
+		};
+		5E4853AC25829C5800E1B1BF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5E4853A925829A5600E1B1BF /* AlbumViewController.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,6 +155,7 @@
 				5E4853AA25829A5600E1B1BF /* AlbumViewController.swift in Sources */,
 				5E48535C2582908C00E1B1BF /* AppDelegate.swift in Sources */,
 				5E48535E2582908C00E1B1BF /* SceneDelegate.swift in Sources */,
+				5E4853AF25829C6B00E1B1BF /* Album.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
