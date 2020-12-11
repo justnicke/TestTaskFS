@@ -12,6 +12,7 @@
 		5E39DF032583660D003537AF /* AlbumDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E39DF022583660D003537AF /* AlbumDescriptionCell.swift */; };
 		5E39DF08258369F3003537AF /* AlbumTrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E39DF07258369F3003537AF /* AlbumTrackCell.swift */; };
 		5E39DF0B25836AB1003537AF /* AlbumExtraInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E39DF0A25836AB1003537AF /* AlbumExtraInfoCell.swift */; };
+		5E39DF0E258391A2003537AF /* StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E39DF0D258391A2003537AF /* StackView.swift */; };
 		5E48535C2582908C00E1B1BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E48535B2582908C00E1B1BF /* AppDelegate.swift */; };
 		5E48535E2582908C00E1B1BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E48535D2582908C00E1B1BF /* SceneDelegate.swift */; };
 		5E4853652582908E00E1B1BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E4853642582908E00E1B1BF /* Assets.xcassets */; };
@@ -29,6 +30,7 @@
 		5E39DF022583660D003537AF /* AlbumDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDescriptionCell.swift; sourceTree = "<group>"; };
 		5E39DF07258369F3003537AF /* AlbumTrackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumTrackCell.swift; sourceTree = "<group>"; };
 		5E39DF0A25836AB1003537AF /* AlbumExtraInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumExtraInfoCell.swift; sourceTree = "<group>"; };
+		5E39DF0D258391A2003537AF /* StackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
 		5E4853582582908C00E1B1BF /* TestTaskFS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestTaskFS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E48535B2582908C00E1B1BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5E48535D2582908C00E1B1BF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				5E4853642582908E00E1B1BF /* Assets.xcassets */,
 				5E4853662582908E00E1B1BF /* LaunchScreen.storyboard */,
 				5E4853692582908E00E1B1BF /* Info.plist */,
+				5E39DF0D258391A2003537AF /* StackView.swift */,
 			);
 			path = TestTaskFS;
 			sourceTree = "<group>";
@@ -216,6 +219,7 @@
 				5E4853B225829D6E00E1B1BF /* API.swift in Sources */,
 				5E4853BA25829F1300E1B1BF /* AlbumCell.swift in Sources */,
 				5E39DF08258369F3003537AF /* AlbumTrackCell.swift in Sources */,
+				5E39DF0E258391A2003537AF /* StackView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

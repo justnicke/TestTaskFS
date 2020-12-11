@@ -103,6 +103,7 @@ extension AlbumDetailViewController: UICollectionViewDataSource, UICollectionVie
         case 0:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumDescriptionCell.reuseId, for: indexPath) as! AlbumDescriptionCell
             cell.backgroundColor = .blue
+            cell.configure(album: album)
             return cell
         case 1:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumTrackCell.reuseId, for: indexPath) as! AlbumTrackCell
