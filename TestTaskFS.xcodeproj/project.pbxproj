@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5E39DEFD25834BA2003537AF /* AlbumDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E39DEFC25834BA2003537AF /* AlbumDetailViewController.swift */; };
 		5E39DF00258352A4003537AF /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E39DEFF258352A4003537AF /* Track.swift */; };
+		5E39DF032583660D003537AF /* AlbumDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E39DF022583660D003537AF /* AlbumDescriptionCell.swift */; };
 		5E48535C2582908C00E1B1BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E48535B2582908C00E1B1BF /* AppDelegate.swift */; };
 		5E48535E2582908C00E1B1BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E48535D2582908C00E1B1BF /* SceneDelegate.swift */; };
 		5E4853652582908E00E1B1BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E4853642582908E00E1B1BF /* Assets.xcassets */; };
@@ -23,6 +24,7 @@
 /* Begin PBXFileReference section */
 		5E39DEFC25834BA2003537AF /* AlbumDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailViewController.swift; sourceTree = "<group>"; };
 		5E39DEFF258352A4003537AF /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
+		5E39DF022583660D003537AF /* AlbumDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDescriptionCell.swift; sourceTree = "<group>"; };
 		5E4853582582908C00E1B1BF /* TestTaskFS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestTaskFS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E48535B2582908C00E1B1BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5E48535D2582908C00E1B1BF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -54,6 +56,15 @@
 				5E4853B925829F1300E1B1BF /* AlbumCell.swift */,
 			);
 			path = Album;
+			sourceTree = "<group>";
+		};
+		5E39DF052583681C003537AF /* AlbumDetail */ = {
+			isa = PBXGroup;
+			children = (
+				5E39DEFC25834BA2003537AF /* AlbumDetailViewController.swift */,
+				5E39DF022583660D003537AF /* AlbumDescriptionCell.swift */,
+			);
+			path = AlbumDetail;
 			sourceTree = "<group>";
 		};
 		5E48534F2582908C00E1B1BF = {
@@ -91,7 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				5E39DEFA25834B74003537AF /* Album */,
-				5E39DEFC25834BA2003537AF /* AlbumDetailViewController.swift */,
+				5E39DF052583681C003537AF /* AlbumDetail */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -192,6 +203,7 @@
 				5E48535C2582908C00E1B1BF /* AppDelegate.swift in Sources */,
 				5E48535E2582908C00E1B1BF /* SceneDelegate.swift in Sources */,
 				5E39DF00258352A4003537AF /* Track.swift in Sources */,
+				5E39DF032583660D003537AF /* AlbumDescriptionCell.swift in Sources */,
 				5E4853AF25829C6B00E1B1BF /* Album.swift in Sources */,
 				5E39DEFD25834BA2003537AF /* AlbumDetailViewController.swift in Sources */,
 				5E4853B225829D6E00E1B1BF /* API.swift in Sources */,

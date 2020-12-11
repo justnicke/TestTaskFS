@@ -23,7 +23,6 @@ final class AlbumViewController: UIViewController {
         
         view.backgroundColor = .red
         
-        
         setupCollectionView()
         setupSearchController()
     }
@@ -57,7 +56,6 @@ final class AlbumViewController: UIViewController {
     }
     
     private func setupSearchController() {
-        definesPresentationContext = true
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         searchController.searchBar.delegate = self
@@ -76,6 +74,11 @@ extension AlbumViewController: UICollectionViewDataSource, UICollectionViewDeleg
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumCell.reuseId, for: indexPath) as! AlbumCell
         cell.configure(album: albums[indexPath.item])
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let detailVC = AlbumDetailViewController(album: albums[indexPath.item])
+        navigationController?.pushViewController(detailVC, animated: true)
     }
 }
 
