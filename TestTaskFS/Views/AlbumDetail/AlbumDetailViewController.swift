@@ -54,18 +54,28 @@ final class AlbumDetailViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.collectionViewLayout = setupLayout()
         collectionView.register(AlbumDescriptionCell.self, forCellWithReuseIdentifier: AlbumDescriptionCell.reuseId)
+        collectionView.register(AlbumTrackCell.self, forCellWithReuseIdentifier: AlbumTrackCell.reuseId)
+        collectionView.register(AlbumExtraInfoCell.self, forCellWithReuseIdentifier: AlbumExtraInfoCell.reuseId)
     }
     
     private func setupLayout() -> UICollectionViewCompositionalLayout {
-        return UICollectionViewCompositionalLayout { _, _ -> NSCollectionLayoutSection? in
-            let layoutSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(self.view.frame.height / 3))
+        return UICollectionViewCompositionalLayout { section, _ -> NSCollectionLayoutSection? in
+            
+            var estimatedHeight: CGFloat
+            
+            switch section {
+            case 0: estimatedHeight = self.view.frame.height / 3
+            case 1: estimatedHeight = 40
+            case 2: estimatedHeight = 50
+            default: fatalError()
+            }
+            
+            let layoutSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(estimatedHeight))
+            
             let item = NSCollectionLayoutItem(layoutSize: layoutSize)
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: layoutSize, subitem: item, count: 1)
-            group.interItemSpacing = NSCollectionLayoutSpacing.fixed(16.0)
-            
             let section = NSCollectionLayoutSection(group: group)
-            section.interGroupSpacing = 16
-            section.contentInsets = NSDirectionalEdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
             
             return section
         }
@@ -75,13 +85,36 @@ final class AlbumDetailViewController: UIViewController {
 // MARK: - CollectionViewDataSource & CollectionViewDelegate
 
 extension AlbumDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 3
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        switch section {
+        case 0: return 1
+        case 1: return 1 // tracks.count
+        case 2: return 1
+        default: return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumDescriptionCell.reuseId, for: indexPath) as! AlbumDescriptionCell
-        cell.backgroundColor = .red
-        return cell
+        switch indexPath.section {
+        case 0:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumDescriptionCell.reuseId, for: indexPath) as! AlbumDescriptionCell
+            cell.backgroundColor = .blue
+            return cell
+        case 1:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumTrackCell.reuseId, for: indexPath) as! AlbumTrackCell
+            cell.backgroundColor = .red
+            return cell
+        case 2:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumExtraInfoCell.reuseId, for: indexPath) as! AlbumExtraInfoCell
+            cell.backgroundColor = .black
+            return cell
+        default: return UICollectionViewCell()
+        }
+        
+
     }
 }
