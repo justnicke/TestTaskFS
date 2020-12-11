@@ -69,12 +69,12 @@ final class AlbumViewController: UIViewController {
 
 extension AlbumViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return albums.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumCell.reuseId, for: indexPath) as! AlbumCell
-        cell.backgroundColor = .red
+        cell.configure(album: albums[indexPath.item])
         return cell
     }
 }
@@ -83,7 +83,15 @@ extension AlbumViewController: UICollectionViewDataSource, UICollectionViewDeleg
 
 extension AlbumViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
+        API.request(album: searchText) { [weak self] (albums, error) in
+            if let error = error {
+                print("ERROR: \(error.localizedDescription),\n func: \(#function),\n line: \(#line)")
+                return
+            }
+            
+            self?.albums = albums?.albums ?? []
+            self?.collectionView.reloadData()
+        }
     }
 }
 

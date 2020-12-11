@@ -50,6 +50,13 @@ final class AlbumCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configure(album: Album) {
+        guard let url = URL(string: album.artworkUrl100) else { return }
+        albumImageView.sd_setImage(with: url)
+        albumLabel.text = album.collectionName
+        artistNameLabel.text = album.artistName
+    }
+    
     private func setupUI() {
         [albumImageView, albumLabel, artistNameLabel].forEach {
             addSubview($0)
