@@ -13,11 +13,14 @@ final class API {
     
     private enum EndPoint {
         case search(_ album: String)
+        case albumTracks(_ id: String)
         
         var urlComponents: URLComponents? {
             switch self {
             case .search(let query):
                 return URLComponents(string: "https://itunes.apple.com/search/media=music&entity=album&term=\(query)")
+            case .albumTracks(let id):
+                return URLComponents(string: "https://itunes.apple.com/lookup?entity=song&id=\(id)")
             }
         }
     }
@@ -26,6 +29,10 @@ final class API {
     
     static func request(album: String, completion: @escaping (AlbumResult?, Error?) -> Void) {
         request(endpoint: .search(album), completion: completion)
+    }
+    
+    static func request(albumTracks: String, completion: @escaping (TrackResult?, Error?) -> Void) {
+        request(endpoint: .albumTracks(albumTracks), completion: completion)
     }
     
     // MARK: - Private Methods
