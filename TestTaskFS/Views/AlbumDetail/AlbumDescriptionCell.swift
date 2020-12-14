@@ -16,8 +16,8 @@ final class AlbumDescriptionCell: UICollectionViewCell {
     
     // MARK: - Private Properties
     
-    private let albumImageView: UIImageView = {
-        let imageView = UIImageView()
+    private let albumImageView: ScaledHeightImageView = {
+        let imageView = ScaledHeightImageView()
         imageView.backgroundColor = .systemRed
         imageView.contentMode = .scaleAspectFit
         return imageView
@@ -63,11 +63,11 @@ final class AlbumDescriptionCell: UICollectionViewCell {
     
     func configure(album: Album) {
         guard let url = URL(string: album.artworkUrl100.replaceQuality()) else { return }
+//        print(url)
         albumImageView.sd_setImage(with: url)
         albumLabel.text = album.collectionName
         artistNameLabel.text = album.artistName
         primaryGenreAndReleaseLabel.text = "\(album.primaryGenreName) – \(album.releaseDate.dropLast(album.releaseDate.count - 4))"
- 
     }
     
     private func setupUI() {
@@ -84,9 +84,8 @@ final class AlbumDescriptionCell: UICollectionViewCell {
         albumImageView.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
         albumImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: frame.width / 5.5).isActive = true
         albumImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -frame.width / 5.5).isActive = true
-        albumImageView.heightAnchor.constraint(equalTo: albumImageView.widthAnchor, multiplier: 1.0 / 1.0).isActive = true
-    
-        stackView.topAnchor.constraint(equalTo: albumImageView.bottomAnchor, constant: 20).isActive = true
+
+        stackView.topAnchor.constraint(equalTo: albumImageView.bottomAnchor, constant: 10).isActive = true
         stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true
         stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
         stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true
@@ -96,5 +95,24 @@ final class AlbumDescriptionCell: UICollectionViewCell {
 extension String {
     func replaceQuality() -> String {
         return self.replacingOccurrences(of: "100x100", with: "400x400")
+    }
+}
+
+class ScaledHeightImageView: UIImageView {
+
+    override var intrinsicContentSize: CGSize {
+
+        if let myImage = self.image {
+            let myImageWidth = myImage.size.width
+            let myImageHeight = myImage.size.height
+            let myViewWidth = self.frame.size.width
+
+            let ratio = myViewWidth / myImageWidth
+            let scaledHeight = myImageHeight * ratio
+
+            return CGSize(width: myViewWidth, height: scaledHeight)
+        }
+
+        return CGSize(width: 0, height: 0)
     }
 }

@@ -35,11 +35,13 @@ final class AlbumDetailViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        
+                
         setupCollectionView()
         
         API.request(albumTracks: String(album.collectionId)) { [weak self] (track, error) in
-            self?.tracks = track?.tracks ?? []
+            guard let trackAl = track?.tracks.dropFirst() else { return }
+            self?.tracks = Array(trackAl)
+            self?.collectionView.reloadData()
         }
     }
     
@@ -92,7 +94,7 @@ extension AlbumDetailViewController: UICollectionViewDataSource, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0: return 1
-        case 1: return 1 // tracks.count
+        case 1: return tracks.count
         case 2: return 1
         default: return 0
         }
@@ -107,10 +109,12 @@ extension AlbumDetailViewController: UICollectionViewDataSource, UICollectionVie
             return cell
         case 1:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumTrackCell.reuseId, for: indexPath) as! AlbumTrackCell
-            cell.backgroundColor = .red
+            cell.backgroundColor = .black
+            cell.configure(track: tracks[indexPath.item])
             return cell
         case 2:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumExtraInfoCell.reuseId, for: indexPath) as! AlbumExtraInfoCell
+            cell.configure(album: album, tracks: tracks)
             cell.backgroundColor = .black
             return cell
         default: return UICollectionViewCell()

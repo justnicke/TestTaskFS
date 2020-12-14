@@ -8,8 +8,12 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
+    
+    // MARK: - Properties
+    
     var window: UIWindow?
+    
+    // MARK: - Methods
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
@@ -21,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func rootVC() -> UINavigationController {
-        let navigationController = UINavigationController(rootViewController: AlbumDetailViewController(album: Album(collectionId: 0, artistName: "", collectionName: "", artworkUrl100: "", trackCount: 0, copyright: "", releaseDate: "", primaryGenreName: "")))
+        let navigationController = UINavigationController(rootViewController: AlbumViewController())
         let appearance = UINavigationBarAppearance()
         let titleFontAttrs = [
             NSAttributedString.Key.font: UIFont(name: "AvenirNext-DemiBold", size: 25)!,
@@ -34,4 +38,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return navigationController
     }
 }
-
