@@ -8,7 +8,7 @@
 import UIKit
 import SDWebImage
 
-final class AlbumCell: UICollectionViewCell {
+final class AlbumCell: UICollectionViewCell, CellConfigurable {
     
     // MARK: - Public Properties
     
@@ -16,49 +16,32 @@ final class AlbumCell: UICollectionViewCell {
     
     // MARK: - Private Properties
     
-    private let albumImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = .systemBlue
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-     let albumLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .left
-        label.text = "Radical - EP"
-        label.font = UIFont(name: "AvenirNext-Medium", size: 14)
-        return label
-    }()
-    
-    private let artistNameLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .left
-        label.text = "lxst cxntury"
-        label.font = UIFont(name: "AvenirNext-Medium", size: 13)
-        label.textColor = .systemGray
-        return label
-    }()
+    private let albumImageView = UIImageView(cornerRadius: 10)
+    private let albumNameLabel = UILabel(font: .avenirNextMedium(14))
+    private let artistNameLabel = UILabel(textColor: .appleGray, font: .avenirNextMedium(13))
     
     // MARK: - Constructors
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupUI()
+        setupAutolayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(album: Album) {
-        guard let url = URL(string: album.artworkUrl100) else { return }
+    // MARK: - Public Methods
+    
+    func configure(_ model: Album) {
+        guard let url = URL(string: model.artworkUrl100.imageQuality200()) else { return }
         albumImageView.sd_setImage(with: url)
-        albumLabel.text = album.collectionName
-        artistNameLabel.text = album.artistName
+        albumNameLabel.text = model.collectionName
+        artistNameLabel.text = model.artistName
     }
     
-    private func setupUI() {
-        [albumImageView, albumLabel, artistNameLabel].forEach {
+    func setupAutolayout() {
+        [albumImageView, albumNameLabel, artistNameLabel].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -66,20 +49,19 @@ final class AlbumCell: UICollectionViewCell {
         albumImageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         albumImageView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         albumImageView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        albumImageView.bottomAnchor.constraint(equalTo: albumLabel.topAnchor).isActive = true
+        albumImageView.bottomAnchor.constraint(equalTo: albumNameLabel.topAnchor).isActive = true
         albumImageView.heightAnchor.constraint(equalTo: albumImageView.widthAnchor, multiplier: 1.0 / 1.0).isActive = true
         
         let priority = UILayoutPriority(252)
-        albumLabel.setContentHuggingPriority(priority, for: .vertical)
-        albumLabel.topAnchor.constraint(equalTo: albumImageView.bottomAnchor).isActive = true
-        albumLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        albumLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        albumLabel.bottomAnchor.constraint(equalTo: artistNameLabel.topAnchor).isActive = true
+        albumNameLabel.setContentHuggingPriority(priority, for: .vertical)
+        albumNameLabel.topAnchor.constraint(equalTo: albumImageView.bottomAnchor).isActive = true
+        albumNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        albumNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        albumNameLabel.bottomAnchor.constraint(equalTo: artistNameLabel.topAnchor).isActive = true
         
-        artistNameLabel.topAnchor.constraint(equalTo: albumLabel.bottomAnchor).isActive = true
+        artistNameLabel.topAnchor.constraint(equalTo: albumNameLabel.bottomAnchor).isActive = true
         artistNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         artistNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         artistNameLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
 }
-
