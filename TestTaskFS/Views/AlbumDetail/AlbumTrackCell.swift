@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class AlbumTrackCell: UICollectionViewCell {
+final class AlbumTrackCell: UICollectionViewCell, CellConfigurable {
     
     // MARK: - Public Properties
     
@@ -15,34 +15,20 @@ final class AlbumTrackCell: UICollectionViewCell {
     
     // MARK: - Private Properties
     
-    let trackNumberLabel: UILabel = {
-       let label = UILabel()
-       label.textAlignment = .left
-       label.text = "2"
-       label.font = UIFont(name: "AvenirNext-Medium", size: 16)
-       label.textColor = .white
-       return label
-   }()
-   
-   private let trackNameLabel: UILabel = {
-       let label = UILabel()
-       label.textAlignment = .left
-    label.numberOfLines = 1
-       label.text = "Amnesia"
-       label.font = UIFont(name: "AvenirNext-Medium", size: 16)
-       label.textColor = .white
-       return label
-   }()
-    
+    private let trackNumberLabel = UILabel(textColor: .appleGray, font: .avenirNextMedium(16))
+    private let trackNameLabel = UILabel(font: .avenirNextMedium(16), numberOfLines: 1)
     private let explicitLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .center
+        let label = UILabel(
+            textColor: .black,
+            font: .avenirNextMedium(10),
+            textAlignment: .center
+        )
         label.text = "E"
-        label.font = UIFont(name: "AvenirNext-Medium", size: 10)
-        label.textColor = .black
-        label.widthAnchor.constraint(equalToConstant: 14).isActive = true
-        label.heightAnchor.constraint(equalToConstant: 14).isActive = true
         label.backgroundColor = .lightGray
+        label.widthAnchor.constraint(equalToConstant: 13).isActive = true
+        label.heightAnchor.constraint(equalToConstant: 13).isActive = true
+        label.layer.cornerRadius = 2
+        label.layer.masksToBounds = true
         return label
     }()
     
@@ -50,25 +36,27 @@ final class AlbumTrackCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupUI()
+        backgroundColor = .background
+        setupAutolayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(track: Track) {
-        trackNumberLabel.text = String(track.trackNumber ?? 0)
-        trackNameLabel.text = track.trackName
+    // MARK: - Public Methods
+    
+    func configure(_ model: Track) {
+        trackNumberLabel.text = String(model.trackNumber ?? 0)
+        trackNameLabel.text = model.trackName
         
-        if track.trackExplicitness == "explicit" {
-            explicitLabel.alpha = 1
-        } else {
-            explicitLabel.alpha = 0
+        switch model.trackExplicitness == "explicit" {
+        case true:  explicitLabel.alpha = 1
+        case false: explicitLabel.alpha = 0
         }
     }
     
-    private func setupUI() {
+    func setupAutolayout() {
         [trackNumberLabel, trackNameLabel, explicitLabel].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
