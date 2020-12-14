@@ -9,6 +9,7 @@ import Foundation
 
 protocol CellConfigurable {
     associatedtype AnyCellModel
+    ///sfgsrg
     func configure(_ model: AnyCellModel)
     func setupAutolayout()
 }
