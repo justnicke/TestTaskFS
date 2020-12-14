@@ -18,7 +18,7 @@ final class AlbumDescriptionCell: UICollectionViewCell, CellConfigurable {
     
     private let albumImageView = UIImageView(cornerRadius: 10)
     private let albumNameLabel = UILabel(font: .avenirNextBold(18), textAlignment: .center, numberOfLines: 0)
-    private let artistNameLabel = UILabel(textColor: .appleRed, font: .avenirNextMedium(17), textAlignment: .center, numberOfLines: 2)
+    private let artistNameLabel = UILabel(textColor: .appleRed, font: .avenirNextMedium(17), textAlignment: .center, numberOfLines: 0)
     private let primaryGenreAndReleaseLabel = UILabel(textColor: .appleGray, font: .avenirNextMedium(14), textAlignment: .center)
     
     // MARK: - Constructors
