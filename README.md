@@ -14,3 +14,7 @@ Other requirements:
 - API description: https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/
 
 <img src="/presentation.gif" width="20%">
+
+### If no schem
+
+Manage schemes -> Auotocreate Schemes Now  -> Close
