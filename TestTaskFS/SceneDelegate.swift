@@ -14,10 +14,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     
     // MARK: - Methods
-
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
-   
+        
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         window?.rootViewController = rootVC()
@@ -26,7 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private func rootVC() -> UINavigationController {
         let navigationController = NavigationController(rootViewController: AlbumViewController())
-
+        
         if #available(iOS 13.0, *) {
             let appearance = UINavigationBarAppearance()
             let titleFontAttrs = [

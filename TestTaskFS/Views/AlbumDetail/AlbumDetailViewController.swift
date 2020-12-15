@@ -8,15 +8,30 @@
 import UIKit
 
 final class AlbumDetailViewController: UIViewController {
-    
-    // MARK: - Public Properties
-    
+      
     // MARK: - Private Properties
     
     private var collectionView: UICollectionView!
+    private let activityIndicator = UIActivityIndicatorView()
     private var album: Album
     private var tracks: [Track] = []
+    private var sections = [
+        Section(sectionCell: .description),
+        Section(sectionCell: .track),
+        Section(sectionCell: .extra)
+    ]
     
+    // MARK: - Private Nested
+    
+    private struct Section {
+        enum SectionCell {
+            case description
+            case track
+            case extra
+        }
+        
+        let sectionCell: SectionCell
+    }
     
     // MARK: - Constructors
     
@@ -33,16 +48,11 @@ final class AlbumDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .background
         
-        view.backgroundColor = .white
-                
         setupCollectionView()
-        
-        API.request(albumTracks: String(album.collectionId)) { [weak self] (track, error) in
-            guard let trackAl = track?.tracks.dropFirst() else { return }
-            self?.tracks = Array(trackAl)
-            self?.collectionView.reloadData()
-        }
+        setupActivityIndicator()
+        request()
     }
     
     // MARK: - Private Methods
@@ -51,7 +61,7 @@ final class AlbumDetailViewController: UIViewController {
         collectionView = UICollectionView(frame: view.frame, collectionViewLayout: UICollectionViewFlowLayout())
         view.addSubview(collectionView)
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .background
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.collectionViewLayout = setupLayout()
@@ -63,17 +73,15 @@ final class AlbumDetailViewController: UIViewController {
     private func setupLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { section, _ -> NSCollectionLayoutSection? in
             
-            var estimatedHeight: CGFloat
+            var height: CGFloat
             
-            switch section {
-            case 0: estimatedHeight = self.view.frame.height / 3
-            case 1: estimatedHeight = 40
-            case 2: estimatedHeight = 50
-            default: fatalError()
+            switch self.sections[section].sectionCell {
+            case .description: height = self.view.frame.height
+            case .track:       height = 40
+            case .extra:       height = 50
             }
             
-            let layoutSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(estimatedHeight))
-            
+            let layoutSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(height))
             let item = NSCollectionLayoutItem(layoutSize: layoutSize)
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: layoutSize, subitem: item, count: 1)
             let section = NSCollectionLayoutSection(group: group)
@@ -82,44 +90,60 @@ final class AlbumDetailViewController: UIViewController {
             return section
         }
     }
+    
+    private func setupActivityIndicator() {
+        view.addSubview(activityIndicator)
+        activityIndicator.centerInSuperview(size: .init(width: view.frame.width, height: view.frame.height))
+        activityIndicator.centerInSuperview()
+        activityIndicator.color = .white
+        activityIndicator.backgroundColor = .background
+        activityIndicator.startAnimating()
+    }
+      
+    private func request() {
+        API.request(albumTracks: String(album.collectionId)) { [weak self] in
+            switch $0 {
+            case .success(let tracks):
+                let trackAl = tracks.tracks.dropFirst()
+                self?.tracks = Array(trackAl)
+                self?.collectionView.reloadData()
+                self?.activityIndicator.stopAnimating()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
 }
 
 // MARK: - CollectionViewDataSource & CollectionViewDelegate
 
 extension AlbumDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 3
+        return sections.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch section {
-        case 0: return 1
-        case 1: return tracks.count
-        case 2: return 1
-        default: return 0
+        switch sections[section].sectionCell {
+        case .description: return 1
+        case .track:       return tracks.count
+        case .extra:       return 1
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        switch indexPath.section {
-        case 0:
+        switch sections[indexPath.section].sectionCell {
+        case .description:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumDescriptionCell.reuseId, for: indexPath) as! AlbumDescriptionCell
-            cell.backgroundColor = .blue
-            cell.configure(album: album)
+            cell.configure(album)
             return cell
-        case 1:
+        case .track:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumTrackCell.reuseId, for: indexPath) as! AlbumTrackCell
-            cell.backgroundColor = .black
-            cell.configure(track: tracks[indexPath.item])
+            cell.configure(tracks[indexPath.item])
             return cell
-        case 2:
+        case .extra:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumExtraInfoCell.reuseId, for: indexPath) as! AlbumExtraInfoCell
             cell.configure(album: album, tracks: tracks)
-            cell.backgroundColor = .black
             return cell
-        default: return UICollectionViewCell()
         }
-        
-
     }
 }
