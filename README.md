@@ -17,4 +17,4 @@ Other requirements:
 
 ### If no schem
 
-Manage schemes -> Auotocreate Schemes Now  -> Close
+Manage schemes -> Autocreate Schemes Now  -> Close
