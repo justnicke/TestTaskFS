@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        
+   
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         window?.rootViewController = rootVC()
@@ -25,16 +25,28 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func rootVC() -> UINavigationController {
-        let navigationController = UINavigationController(rootViewController: AlbumViewController())
-        let appearance = UINavigationBarAppearance()
-        let titleFontAttrs = [
-            NSAttributedString.Key.font: UIFont(name: "AvenirNext-DemiBold", size: 25)!,
-            NSAttributedString.Key.foregroundColor: UIColor.black
-        ]
-        appearance.backgroundColor = .white
-        appearance.titleTextAttributes = titleFontAttrs
-        navigationController.navigationBar.standardAppearance = appearance
-        
+        let navigationController = NavigationController(rootViewController: AlbumViewController())
+
+        if #available(iOS 13.0, *) {
+            let appearance = UINavigationBarAppearance()
+            let titleFontAttrs = [
+                NSAttributedString.Key.font: UIFont(name: "AvenirNext-DemiBold", size: 25)!,
+                NSAttributedString.Key.foregroundColor: UIColor.white
+            ]
+            appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+            appearance.titleTextAttributes = titleFontAttrs
+            appearance.configureWithOpaqueBackground()
+            appearance.configureWithTransparentBackground()
+            appearance.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.9713452483)
+            navigationController.navigationBar.standardAppearance = appearance
+            navigationController.navigationBar.scrollEdgeAppearance = appearance
+        }
         return navigationController
+    }
+}
+
+final class NavigationController: UINavigationController {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
 }

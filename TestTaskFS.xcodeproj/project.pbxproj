@@ -13,6 +13,9 @@
 		5E39DF08258369F3003537AF /* AlbumTrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E39DF07258369F3003537AF /* AlbumTrackCell.swift */; };
 		5E39DF0B25836AB1003537AF /* AlbumExtraInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E39DF0A25836AB1003537AF /* AlbumExtraInfoCell.swift */; };
 		5E39DF0E258391A2003537AF /* StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E39DF0D258391A2003537AF /* StackView.swift */; };
+		5E46E67225888C5000350A3D /* StateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E46E67125888C5000350A3D /* StateView.swift */; };
+		5E46E6762588E99A00350A3D /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E46E6752588E99A00350A3D /* Reachability.swift */; };
+		5E46E6792588F2D300350A3D /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E46E6782588F2D300350A3D /* Layout.swift */; };
 		5E4764A6258787BA0014390B /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4764A5258787BA0014390B /* ImageView.swift */; };
 		5E4764AC25878D2D0014390B /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4764AB25878D2D0014390B /* Label.swift */; };
 		5E4764AF2587A21B0014390B /* CellConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4764AE2587A21B0014390B /* CellConfigurable.swift */; };
@@ -38,6 +41,9 @@
 		5E39DF07258369F3003537AF /* AlbumTrackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumTrackCell.swift; sourceTree = "<group>"; };
 		5E39DF0A25836AB1003537AF /* AlbumExtraInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumExtraInfoCell.swift; sourceTree = "<group>"; };
 		5E39DF0D258391A2003537AF /* StackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
+		5E46E67125888C5000350A3D /* StateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateView.swift; sourceTree = "<group>"; };
+		5E46E6752588E99A00350A3D /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		5E46E6782588F2D300350A3D /* Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
 		5E4764A5258787BA0014390B /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		5E4764AB25878D2D0014390B /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		5E4764AE2587A21B0014390B /* CellConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellConfigurable.swift; sourceTree = "<group>"; };
@@ -73,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				5E4853A925829A5600E1B1BF /* AlbumViewController.swift */,
+				5E46E67125888C5000350A3D /* StateView.swift */,
 				5E4853B925829F1300E1B1BF /* AlbumCell.swift */,
 			);
 			path = Album;
@@ -99,6 +106,7 @@
 				5E4764B42587A28D0014390B /* Color.swift */,
 				5E4764BC2587A4410014390B /* String.swift */,
 				5E4764BF2587D2B70014390B /* Double.swift */,
+				5E46E6782588F2D300350A3D /* Layout.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -157,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				5E4853B125829D6E00E1B1BF /* API.swift */,
+				5E46E6752588E99A00350A3D /* Reachability.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -247,10 +256,12 @@
 			files = (
 				5E4764AF2587A21B0014390B /* CellConfigurable.swift in Sources */,
 				5E4853AA25829A5600E1B1BF /* AlbumViewController.swift in Sources */,
+				5E46E67225888C5000350A3D /* StateView.swift in Sources */,
 				5E48535C2582908C00E1B1BF /* AppDelegate.swift in Sources */,
 				5E48535E2582908C00E1B1BF /* SceneDelegate.swift in Sources */,
 				5E39DF00258352A4003537AF /* Track.swift in Sources */,
 				5E4764B52587A28D0014390B /* Color.swift in Sources */,
+				5E46E6792588F2D300350A3D /* Layout.swift in Sources */,
 				5E4764A6258787BA0014390B /* ImageView.swift in Sources */,
 				5E39DF032583660D003537AF /* AlbumDescriptionCell.swift in Sources */,
 				5E39DF0B25836AB1003537AF /* AlbumExtraInfoCell.swift in Sources */,
@@ -258,6 +269,7 @@
 				5E4853AF25829C6B00E1B1BF /* Album.swift in Sources */,
 				5E39DEFD25834BA2003537AF /* AlbumDetailViewController.swift in Sources */,
 				5E4853B225829D6E00E1B1BF /* API.swift in Sources */,
+				5E46E6762588E99A00350A3D /* Reachability.swift in Sources */,
 				5E4764BD2587A4410014390B /* String.swift in Sources */,
 				5E4764BA2587A2F40014390B /* Font.swift in Sources */,
 				5E4853BA25829F1300E1B1BF /* AlbumCell.swift in Sources */,

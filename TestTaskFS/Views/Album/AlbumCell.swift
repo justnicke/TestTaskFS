@@ -35,6 +35,7 @@ final class AlbumCell: UICollectionViewCell, CellConfigurable {
     
     func configure(_ model: Album) {
         guard let url = URL(string: model.artworkUrl100.imageQuality200()) else { return }
+        albumImageView.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
         albumImageView.sd_setImage(with: url)
         albumNameLabel.text = model.collectionName
         artistNameLabel.text = model.artistName

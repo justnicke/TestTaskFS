@@ -52,7 +52,7 @@ final class AlbumExtraInfoCell: UICollectionViewCell {
             arrangedSubviews: [trackNumberLabel, copyrightLabel],
             axis: .vertical,
             spacing: 3,
-            distribution: .fillProportionally
+            distribution: .fillEqually
         )
         
         addSubview(stackView)

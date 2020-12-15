@@ -31,6 +31,7 @@ final class AlbumTrackCell: UICollectionViewCell, CellConfigurable {
         label.layer.masksToBounds = true
         return label
     }()
+    private let separateView = UIView()
     
     // MARK: - Constructors
     
@@ -57,7 +58,7 @@ final class AlbumTrackCell: UICollectionViewCell, CellConfigurable {
     }
     
     func setupAutolayout() {
-        [trackNumberLabel, trackNameLabel, explicitLabel].forEach {
+        [trackNumberLabel, trackNameLabel, explicitLabel, separateView].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -74,5 +75,11 @@ final class AlbumTrackCell: UICollectionViewCell, CellConfigurable {
         explicitLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         explicitLabel.leadingAnchor.constraint(equalTo: trackNameLabel.trailingAnchor, constant: 5).isActive = true
         explicitLabel.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -20).isActive = true
+        
+        separateView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 47).isActive = true
+        separateView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        separateView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        separateView.backgroundColor = .separator
+        separateView.heightAnchor.constraint(equalToConstant: 0.7).isActive = true
     }
 }

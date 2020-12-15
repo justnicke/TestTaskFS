@@ -37,6 +37,7 @@ final class AlbumDescriptionCell: UICollectionViewCell, CellConfigurable {
     
     func configure(_ model: Album) {
         guard let url = URL(string: model.artworkUrl100.imageQuality400()) else { return }
+        albumImageView.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
         albumImageView.sd_setImage(with: url)
         albumNameLabel.text = model.collectionName
         artistNameLabel.text = model.artistName
@@ -47,7 +48,8 @@ final class AlbumDescriptionCell: UICollectionViewCell, CellConfigurable {
         let stackView = UIStackView(
             arrangedSubviews: [albumNameLabel, artistNameLabel, primaryGenreAndReleaseLabel],
             axis: .vertical,
-            spacing: 5
+            spacing: 5,
+            distribution: .fillProportionally
         )
         
         [albumImageView, stackView].forEach {

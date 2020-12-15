@@ -4,39 +4,47 @@
 //
 //  Created by Nikita Sukachev on 10.12.2020.
 //
+
 import UIKit
 
 final class AlbumViewController: UIViewController {
-    
-    // MARK: - Public Properties
-    
+        
     // MARK: - Private Properties
     
     private var collectionView: UICollectionView!
     private let searchController = UISearchController(searchResultsController: nil)
     private var albums: [Album] = []
-    
+    private let stateView = StateView()
+  
     // MARK: - Public Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .background
         
-        view.backgroundColor = .red
+        stateView.networkMonitor()
         
         setupCollectionView()
         setupSearchController()
+        initStateView()
     }
     
     // MARK: - Private Methods
+    
+    private func initStateView() {
+        view.addSubview(stateView)
+        stateView.centerInSuperview(size: .init(width: view.frame.width, height: view.frame.height))
+    }
     
     private func setupCollectionView() {
         collectionView = UICollectionView(frame: view.frame, collectionViewLayout: UICollectionViewFlowLayout())
         view.addSubview(collectionView)
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .background
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.collectionViewLayout = setupLayout()
+        collectionView.keyboardDismissMode = .onDrag
         collectionView.register(AlbumCell.self, forCellWithReuseIdentifier: AlbumCell.reuseId)
     }
     
@@ -56,10 +64,33 @@ final class AlbumViewController: UIViewController {
     }
     
     private func setupSearchController() {
+        navigationItem.title = "Search Album"
+        navigationController?.navigationBar.tintColor = .appleRed
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
+        searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.delegate = self
         searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.searchTextField.textColor = .white
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).keyboardAppearance = .dark
+    }
+    
+    private func request(_ searchText: String) {
+        API.request(album: searchText.removeSpaces()) { [weak self] in
+            switch $0 {
+            case .success(let albums):
+                if albums.albums.isEmpty { self?.stateView.currently(.invalidResult) }
+                self?.albums = albums.albums
+                self?.collectionView.reloadData()
+                
+                guard Reachability.isConnectedToNetwork() else {
+                    self?.stateView.currently(.error)
+                    return
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
 }
 
@@ -72,7 +103,7 @@ extension AlbumViewController: UICollectionViewDataSource, UICollectionViewDeleg
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumCell.reuseId, for: indexPath) as! AlbumCell
-        cell.configure(album: albums[indexPath.item])
+        cell.configure(albums[indexPath.item])
         return cell
     }
     
@@ -86,15 +117,19 @@ extension AlbumViewController: UICollectionViewDataSource, UICollectionViewDeleg
 
 extension AlbumViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        API.request(album: searchText) { [weak self] (albums, error) in
-            if let error = error {
-                print("ERROR: \(error.localizedDescription),\n func: \(#function),\n line: \(#line)")
-                return
-            }
-            
-            self?.albums = albums?.albums ?? []
-            self?.collectionView.reloadData()
+        guard Reachability.isConnectedToNetwork() else {
+            self.stateView.currently(.error)
+            return
         }
+        searchText.isEmpty ? stateView.currently(.empty) : stateView.currently(.validResult)
+        request(searchText)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        guard Reachability.isConnectedToNetwork() else {
+            self.stateView.currently(.error)
+            return
+        }
+        stateView.currently(.empty)
     }
 }
-
