@@ -80,7 +80,7 @@ final class AlbumViewController: UIViewController {
             switch $0 {
             case .success(let albums):
                 if albums.albums.isEmpty { self?.stateView.currently(.invalidResult) }
-                self?.albums = albums.albums
+                self?.albums = albums.albums.sorted(by: { $0.collectionName < $1.collectionName })
                 self?.collectionView.reloadData()
                 
                 guard Reachability.isConnectedToNetwork() else {
