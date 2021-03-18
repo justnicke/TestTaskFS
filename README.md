@@ -15,6 +15,6 @@ Other requirements:
 
 <img src="/presentation.gif" width="20%">
 
-### If no schem
+### If no scheme
 
 Manage schemes -> Autocreate Schemes Now  -> Close
